@@ -1,0 +1,60 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} UI Tables {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+        <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title ">Order Table</h4>
+                  <p class="card-category"> 고객의 회원 정보 Table</p>
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead class=" text-primary">
+                        <th>No</th>
+                        <th>User Info</th>
+                        <th>State</th>
+                        <th>Order Detail</th>
+                      </thead>
+                      <tbody>
+                        {% for idx, datas in user_data %}
+                        <tr>
+                          <td class="text-primary">{{ idx + 1 }}</td>
+                          <td><b>{{ datas[1] }}</b>번 손님</td>
+                          <td>{{ datas[2] }}
+                            {% if datas[2] == '처리중' %}
+                            <form method="post" action="state_change">
+                              <input type="submit" name="state" value= "{{ datas[1] }}">({{ datas[1] }}번 손님 주문 처리 완료시 클릭)
+                            </form>
+                            {% else %}
+                            <form method="post" action="order_delete">
+                              <input type="submit" name="delete" value= "{{ datas[1] }}">{{ datas[1] }}번 손님 주문정보 삭제
+                            </form>
+                            {% endif %}
+                          </td>
+                          <td>
+                            <form method="post" action="order-detail-tables">
+                              <input type="submit" name="num" value= "{{ datas[0] }}">{{ datas[1] }}번 손님 주문 내역 상세보기
+                            </form>
+                          </td>
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

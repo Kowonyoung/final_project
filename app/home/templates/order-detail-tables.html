@@ -1,0 +1,47 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} UI Tables {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+        <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title ">Order Detail Table</h4>
+                  <p class="card-category"><b>{{ user_number }}</b>번 고객님의 주문 상세 정보 Table</p>
+                  <form method="post" action="go_back">
+                    <input type="submit" name="go_back" value= "뒤로가기">
+                  </form>
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead class=" text-primary">
+                        <th>No</th>
+                        <th>Menu</th>
+                        <th>Quantity</th>
+                      </thead>
+                      <tbody>
+                        {% for idx, datas in order_data %}
+                        <tr>
+                          <td class="text-primary">{{ idx + 1 }}</td>
+                          <td>{{ datas[0] }}</td>
+                          <td>{{ datas[1] }}</td>
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}
